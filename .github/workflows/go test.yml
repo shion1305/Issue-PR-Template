@@ -1,0 +1,28 @@
+name: go test with firestore emulator
+on: [ push ]
+jobs:
+  go-test-with-firestore-emulator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.19
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: |
+          echo "ENV_LOCATION=$GITHUB_WORKSPACE/pkg/setting/files/setting.testing.yaml"
+          echo "ENV_LOCATION=$GITHUB_WORKSPACE/pkg/setting/files/setting.testing.yaml" >> $GITHUB_ENV
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+      - name: 'Install gcloud required components'
+        run: gcloud components install beta cloud-firestore-emulator --quiet
+      - name: 'Run Firestore Emulator'
+        run: |
+          gcloud beta emulators firestore start --quiet --host-port localhost:8020 &
+      - name: 'Waiting for the emulator to start up'
+        run: sleep 5
+      - name: Run tests
+        env:
+          FIRESTORE_EMULATOR_HOST: localhost:8020
+        run: go test -v ./...
