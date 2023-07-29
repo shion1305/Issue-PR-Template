@@ -3,8 +3,7 @@ description: Are you desperate for a new feature? Wanna talk with us to make it 
 title: "✨⚡️📝🔥🔧 "
 labels: "suggestion"
 assignees:
-  - shion1305
-  - tomoyahiroe
+  - 
 body:
   - type: textarea
     id: feature-description

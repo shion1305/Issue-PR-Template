@@ -3,8 +3,7 @@ description: "Did you spot BIG cockroach running on the street? Try to catch it,
 title: "🐛🔧 "
 labels: 'bug'
 assignees:
-  - shion1305
-  - tomoyahiroe
+  - 
 body:
   - type: textarea
     id: summary
